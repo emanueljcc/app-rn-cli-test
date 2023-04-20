@@ -1,18 +1,46 @@
 import {StackScreenProps} from '@react-navigation/stack';
-import {View, Text, Button} from 'react-native';
-import {styles} from '../theme/globalStyles';
+import {SafeAreaView, View, ScrollView, Platform} from 'react-native';
 
-interface IProps extends StackScreenProps<any, any> {}
-const HomeScreen = ({navigation}: IProps) => {
+import {StackNavigationParams} from '../navigations/StackNavigation';
+import {CardPoints, HeaderTitle, SectionLabel, CardList} from '../components';
+import PrimaryButton from '../components/PrimaryButton';
+
+type TProps = StackScreenProps<StackNavigationParams, 'HomeScreen'>;
+
+const HomeScreen = ({navigation}: TProps): JSX.Element => {
   return (
-    <View style={styles.marginGlobal}>
-      <Text>HomeScreen</Text>
+    <SafeAreaView className="mx-6 flex-1">
+      <ScrollView
+        className={Platform.OS === 'ios' ? 'mb-20' : 'mb-28'}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}>
+        <HeaderTitle />
 
-      <Button
-        title="Ir a la page 2"
-        onPress={() => navigation.navigate('Page2Screen')}
-      />
-    </View>
+        <SectionLabel title="Tus puntos" />
+        <CardPoints />
+
+        <SectionLabel title="Tus movimientos" />
+        <CardList />
+      </ScrollView>
+
+      <View className="w-full absolute bottom-10 flex-row justify-center items-center">
+        <PrimaryButton
+          className="w-full"
+          title="Todos"
+          onPress={() => navigation.navigate('PageDetailScreen')}
+        />
+        {/* <PrimaryButton
+          className="w-1/2 mr-[13px]"
+          title="Ganados"
+          onPress={() => navigation.navigate('PageDetailScreen')}
+        />
+        <PrimaryButton
+          className="w-1/2"
+          title="Canjeados"
+          onPress={() => navigation.navigate('PageDetailScreen')}
+        /> */}
+      </View>
+    </SafeAreaView>
   );
 };
 
