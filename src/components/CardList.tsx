@@ -1,6 +1,6 @@
 import {Text, View, FlatList, Image, TouchableOpacity} from 'react-native';
 
-import ArrowSVG from './ArrowSVG';
+import ArrowSVG from './SVG/ArrowSVG';
 import {ScrollView} from 'react-native-gesture-handler';
 
 const data = [
