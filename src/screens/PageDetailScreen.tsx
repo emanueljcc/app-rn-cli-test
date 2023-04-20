@@ -1,6 +1,7 @@
-import {StackScreenProps} from '@react-navigation/stack';
 import {useEffect} from 'react';
 import {Text, View, ScrollView} from 'react-native';
+import {StackScreenProps} from '@react-navigation/stack';
+
 import {styles} from '../theme/globalStyles';
 import ImgDefaultSVG from '../components/SVG/ImgDefaultSVG';
 import {PrimaryButton} from '../components';

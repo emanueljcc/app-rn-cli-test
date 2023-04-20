@@ -4,10 +4,14 @@ import {SafeAreaView, View, ScrollView, Platform} from 'react-native';
 import {StackNavigationParams} from '../navigations/StackNavigation';
 import {CardPoints, HeaderTitle, SectionLabel, CardList} from '../components';
 import PrimaryButton from '../components/PrimaryButton';
+import {useGetDataQuery} from '../services/apiSlice';
 
 type TProps = StackScreenProps<StackNavigationParams, 'HomeScreen'>;
 
 const HomeScreen = ({navigation}: TProps): JSX.Element => {
+  const {data = [], isLoading} = useGetDataQuery(undefined);
+
+  console.log({data, isLoading});
   return (
     <SafeAreaView className="mx-6 flex-1">
       <ScrollView
