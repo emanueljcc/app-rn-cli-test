@@ -2,6 +2,7 @@ import {Text, View, FlatList, Image, TouchableOpacity} from 'react-native';
 
 import ArrowSVG from './SVG/ArrowSVG';
 import {ScrollView} from 'react-native-gesture-handler';
+import SkeletonLoader from './SkeletonLoader';
 
 const data = [
 	{
@@ -109,14 +110,15 @@ const CardList = (): JSX.Element => {
 			<ScrollView
 				showsHorizontalScrollIndicator={false}
 				showsVerticalScrollIndicator={false}>
-				<FlatList
+				{/* <FlatList
 					className="flex-1"
 					data={data}
 					renderItem={({item}) => <Item item={item} />}
 					keyExtractor={item => String(item.id)}
 					showsVerticalScrollIndicator={false}
 					showsHorizontalScrollIndicator={false}
-				/>
+				/> */}
+				<SkeletonLoader />
 			</ScrollView>
 		</View>
 	);

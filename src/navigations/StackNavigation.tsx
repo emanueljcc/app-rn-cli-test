@@ -5,7 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 // screens
 import HomeScreen from '../screens/HomeScreen';
 import PageDetailScreen from '../screens/PageDetailScreen';
-import PurpleBG from '../components/PurpleBG';
+import {PurpleBG} from '../components';
 
 // TODO: definir aqui los props de cada screen
 export type StackNavigationParams = {
