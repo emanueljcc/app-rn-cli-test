@@ -28,6 +28,7 @@ const HomeScreen = (props: IProps): JSX.Element => {
 
   const [dataList, setDataList] = useState<MockResponse[]>([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [allButtons, setAllButtons] = useState(true);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => setDataList(data), [isLoading]);
@@ -57,8 +58,13 @@ const HomeScreen = (props: IProps): JSX.Element => {
     [data],
   );
 
-  const handleChangeData = (arg: boolean) => {
-    setDataList(data.filter((el: MockResponse) => el.is_redemption === arg));
+  const handleChangeData = (arg: boolean, isAllData = false) => {
+    if (isAllData) {
+      setDataList(data);
+    } else {
+      setDataList(data.filter((el: MockResponse) => el.is_redemption === arg));
+    }
+    setAllButtons(prev => !prev);
   };
 
   const onRefresh = useCallback(async () => {
@@ -95,17 +101,26 @@ const HomeScreen = (props: IProps): JSX.Element => {
       <Animated.View
         style={{opacity}}
         className="w-full absolute bottom-10 flex-row justify-center items-center px-1">
-        {/* <PrimaryButton className="w-full" title="Todos" onPress={handlePress} /> */}
-        <PrimaryButton
-          className="w-1/2 mr-[13px]"
-          title="Ganados"
-          onPress={() => handleChangeData(false)}
-        />
-        <PrimaryButton
-          className="w-1/2"
-          title="Canjeados"
-          onPress={() => handleChangeData(true)}
-        />
+        {allButtons ? (
+          <>
+            <PrimaryButton
+              className="w-1/2 mr-[13px]"
+              title="Ganados"
+              onPress={() => handleChangeData(false)}
+            />
+            <PrimaryButton
+              className="w-1/2"
+              title="Canjeados"
+              onPress={() => handleChangeData(true)}
+            />
+          </>
+        ) : (
+          <PrimaryButton
+            className="w-full"
+            title="Todos"
+            onPress={() => handleChangeData(true, true)}
+          />
+        )}
       </Animated.View>
     </SafeAreaView>
   );

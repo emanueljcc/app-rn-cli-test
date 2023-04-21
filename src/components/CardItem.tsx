@@ -25,7 +25,6 @@ const CardItem = ({item, onPress}: TItemProps): JSX.Element => {
 				</Text>
 			</View>
 			<Text className="mt-4 text-base font-avenirBlack mr-7">
-				{/* <Text className="text-error">-</Text>100 */}
 				<Text
 					className={`${
 						!item.is_redemption ? 'text-success' : 'text-error'

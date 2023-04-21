@@ -25,7 +25,7 @@ const StackNavigation = (): JSX.Element => {
       height: 0,
     },
     headerLeft: () => null,
-    headerBackground: () => <PurpleBG />,
+    headerBackground: () => <PurpleBG title="" />,
     headerTitleAlign: 'left',
   });
 
