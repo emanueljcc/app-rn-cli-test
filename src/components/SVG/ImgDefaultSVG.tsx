@@ -4,6 +4,7 @@ import Svg, {Path, Defs, Pattern, Use, Image} from 'react-native-svg';
 function ImgDefaultSVG(props: any) {
 	return (
 		<Svg
+			testID="svg-element"
 			width={200}
 			height={200}
 			viewBox="0 0 200 200"

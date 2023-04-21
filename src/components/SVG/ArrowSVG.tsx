@@ -2,6 +2,7 @@ import Svg, {Path} from 'react-native-svg';
 
 const ArrowSVG = (props: any) => (
 	<Svg
+		testID="arrow-svg"
 		height="12.02px"
 		width="12.91px"
 		viewBox="0 0 185.343 185.343"

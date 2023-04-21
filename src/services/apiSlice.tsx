@@ -15,7 +15,7 @@ export const apiSlice = createApi({
 	}),
 	tagTypes: [''],
 	endpoints: builder => ({
-		getData: builder.query<MockResponse[], any>({
+		getData: builder.query<MockResponse[], void>({
 			query: () => ({
 				url: 'v1/products',
 			}),

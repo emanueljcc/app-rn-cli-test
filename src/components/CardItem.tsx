@@ -10,8 +10,12 @@ type TItemProps = {
 };
 const CardItem = ({item, onPress}: TItemProps): JSX.Element => {
 	return (
-		<TouchableOpacity className="flex-row m-2.5" onPress={() => onPress(item)}>
+		<TouchableOpacity
+			testID="card-item-container"
+			className="flex-row m-2.5"
+			onPress={() => onPress(item)}>
 			<Image
+				testID="card-item-image"
 				source={{uri: item.image}}
 				className="w-[55px] h-[55px] rounded-xl"
 			/>
@@ -19,7 +23,7 @@ const CardItem = ({item, onPress}: TItemProps): JSX.Element => {
 				<Text className="font-avenirBlack text-sm mt-0">{item.product}</Text>
 				<Text
 					className={`${
-						item.product.length < 20 ? 'mt-3' : 'mt-1'
+						item.product?.length < 20 ? 'mt-3' : 'mt-1'
 					} font-avenirLight text-xs`}>
 					{formatDate(item.createdAt)}
 				</Text>

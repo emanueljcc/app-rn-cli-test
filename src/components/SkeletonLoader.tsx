@@ -4,6 +4,7 @@ const SkeletonLoader = () => (
 	<>
 		{[...Array(6).keys()].map(el => (
 			<ContentLoader
+				testID="skeleton"
 				key={el}
 				speed={2}
 				width={400}

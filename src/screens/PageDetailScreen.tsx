@@ -69,7 +69,11 @@ const PageDetailScreen = ({navigation, route}: IProps): JSX.Element => {
 						{formatNumber(item.points)} puntos
 					</Text>
 
-					<PrimaryButton title="Aceptar" onPress={() => navigation.goBack()} />
+					<PrimaryButton
+						testID="accept-button"
+						title="Aceptar"
+						onPress={() => navigation.goBack()}
+					/>
 				</View>
 			</Animated.View>
 		</ScrollView>

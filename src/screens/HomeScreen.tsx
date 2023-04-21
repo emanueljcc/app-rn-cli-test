@@ -24,7 +24,7 @@ interface IProps extends StackScreenProps<StackNavigationParams, 'HomeScreen'> {
 const HomeScreen = (props: IProps): JSX.Element => {
   const {fadeIn, opacity} = useAnimation();
 
-  const {data = [], isLoading, refetch} = useGetDataQuery(undefined);
+  const {data = [], isLoading, refetch} = useGetDataQuery();
 
   const [dataList, setDataList] = useState<MockResponse[]>([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -77,6 +77,7 @@ const HomeScreen = (props: IProps): JSX.Element => {
   return (
     <SafeAreaView className="mx-6 flex-1">
       <ScrollView
+        testID="refresh-control"
         className={Platform.OS === 'ios' ? 'mb-20' : 'mb-28'}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
@@ -104,6 +105,7 @@ const HomeScreen = (props: IProps): JSX.Element => {
         {allButtons ? (
           <>
             <PrimaryButton
+              testID="item-button"
               className="w-1/2 mr-[13px]"
               title="Ganados"
               onPress={() => handleChangeData(false)}

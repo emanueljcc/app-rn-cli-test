@@ -16,7 +16,7 @@ export const rtkQueryErrorLogger: Middleware = () => next => action => {
 				action?.payload?.data?.error?.message || 'Un error ha ocurrido 😥',
 		};
 
-		console.log('action => ', {errResponses, action});
+		// console.log('action => ', {errResponses, action});
 	}
 
 	return next(action);

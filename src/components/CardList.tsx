@@ -1,5 +1,5 @@
-import {View, FlatList} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import {View, FlatList, ScrollView} from 'react-native';
+// import {ScrollView} from 'react-native-gesture-handler';
 
 import SkeletonLoader from './SkeletonLoader';
 import {MockResponse} from '../interfaces';
@@ -11,7 +11,11 @@ type TCardListProps = {
 	onPress: (item: MockResponse) => void;
 };
 
-const CardList = ({data, isLoading = true, onPress}: TCardListProps) => {
+const CardList = ({
+	data,
+	isLoading = true,
+	onPress,
+}: TCardListProps): JSX.Element => {
 	return (
 		<View className="bg-white h-[400px] rounded-3xl py-4 px-1">
 			<ScrollView

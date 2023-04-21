@@ -6,6 +6,7 @@ interface IProps extends TouchableOpacityProps {
 const PrimaryButton = (props: IProps): JSX.Element => {
 	return (
 		<TouchableOpacity
+			testID="primary-button"
 			activeOpacity={0.7}
 			className="h-[50px] bg-blueCompany rounded-[10px] justify-center items-center"
 			{...props}>
