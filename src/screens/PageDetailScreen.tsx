@@ -66,6 +66,12 @@ const PageDetailScreen = ({navigation, route}: IProps): JSX.Element => {
 					</Text>
 
 					<Text className="font-avenirBlack text-2xl text-black mt-10 mb-12">
+						<Text
+							className={`${
+								!item.is_redemption ? 'text-success' : 'text-error'
+							} font-avenirBlack`}>
+							{!item.is_redemption ? '+' : '-'}
+						</Text>
 						{formatNumber(item.points)} puntos
 					</Text>
 
