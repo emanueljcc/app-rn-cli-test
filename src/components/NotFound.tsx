@@ -10,6 +10,7 @@ const NotFound = () => {
 	return (
 		<View className="flex-1 justify-center items-center">
 			<StyledLottie
+				testID="not-found-animation"
 				ref={animationRef}
 				source={require('../assets/animations/not-found.json')}
 				autoPlay
