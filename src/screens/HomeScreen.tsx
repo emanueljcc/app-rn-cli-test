@@ -116,7 +116,7 @@ const HomeScreen = (props: IProps): JSX.Element => {
 				}>
 				<KeyboardAvoidingView
 					className="flex-1"
-					keyboardVerticalOffset={20}
+					keyboardVerticalOffset={40}
 					behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 					<Animated.View style={{opacity}}>
 						<HeaderTitle />
@@ -126,12 +126,14 @@ const HomeScreen = (props: IProps): JSX.Element => {
 
 						<View className="flex-1 flex-row justify-between">
 							<SectionLabel title="Tus movimientos" />
-							<TouchableOpacity
-								activeOpacity={0.2}
-								className="mt-2"
-								onPress={!showSearch ? handleShowSearch : handleClean}>
-								{showSearch ? <RemoveSVG /> : <SearchSVG />}
-							</TouchableOpacity>
+							{Platform.OS === 'ios' && (
+								<TouchableOpacity
+									activeOpacity={0.2}
+									className="mt-2"
+									onPress={!showSearch ? handleShowSearch : handleClean}>
+									{showSearch ? <RemoveSVG /> : <SearchSVG />}
+								</TouchableOpacity>
+							)}
 						</View>
 
 						{showSearch && (
