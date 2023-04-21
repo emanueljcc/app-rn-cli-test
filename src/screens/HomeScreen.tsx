@@ -6,6 +6,8 @@ import {
   Platform,
   Animated,
   RefreshControl,
+  View,
+  TouchableOpacity,
 } from 'react-native';
 
 import {StackNavigationParams} from '../navigations/StackNavigation';
@@ -15,6 +17,10 @@ import {useGetDataQuery} from '../services/apiSlice';
 import {withHapticVibration} from '../HOC';
 import {useAnimation} from '../hooks';
 import {MockResponse} from '../interfaces';
+import SearchSVG from '../components/SVG/SearchSVG';
+import RemoveSVG from '../components/SVG/RemoveSVG';
+import {TextInput} from 'react-native';
+import {useDebounce} from '../hooks';
 
 interface IProps extends StackScreenProps<StackNavigationParams, 'HomeScreen'> {
   item: MockResponse;
@@ -29,6 +35,19 @@ const HomeScreen = (props: IProps): JSX.Element => {
   const [dataList, setDataList] = useState<MockResponse[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [allButtons, setAllButtons] = useState(true);
+  const [showSearch, setShowSearch] = useState(false);
+  const [valueInput, setValueInput] = useState('');
+
+  const lastValue = useDebounce(valueInput, 300);
+
+  useEffect(() => {
+    const tmp = data.filter((el: MockResponse) =>
+      el.product.toLowerCase().includes(lastValue.toLowerCase()),
+    );
+
+    setDataList(tmp);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastValue]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => setDataList(data), [isLoading]);
@@ -59,6 +78,7 @@ const HomeScreen = (props: IProps): JSX.Element => {
   );
 
   const handleChangeData = (arg: boolean, isAllData = false) => {
+    props?.handleVibration();
     if (isAllData) {
       setDataList(data);
     } else {
@@ -73,6 +93,16 @@ const HomeScreen = (props: IProps): JSX.Element => {
     setRefreshing(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleShowSearch = () => setShowSearch(prev => !prev);
+
+  const handleClean = () => {
+    setDataList(data);
+    setValueInput('');
+    setShowSearch(false);
+  };
+
+  const handleChangeInput = (val: string) => setValueInput(val);
 
   return (
     <SafeAreaView className="mx-6 flex-1">
@@ -90,7 +120,28 @@ const HomeScreen = (props: IProps): JSX.Element => {
           <SectionLabel title="Tus puntos" />
           <CardPoints total={totalPoints} />
 
-          <SectionLabel title="Tus movimientos" />
+          <View className="flex-1 flex-row justify-between">
+            <SectionLabel title="Tus movimientos" />
+            <TouchableOpacity
+              activeOpacity={0.2}
+              className="mt-2"
+              onPress={!showSearch ? handleShowSearch : handleClean}>
+              {showSearch ? <RemoveSVG /> : <SearchSVG />}
+            </TouchableOpacity>
+          </View>
+
+          {showSearch && (
+            <TextInput
+              className="rounded-md border-[1px] h-10 p-2 border-[#ced4da] bg-white mb-4"
+              onChangeText={handleChangeInput}
+              value={valueInput}
+              placeholder="Ingrese una palabra"
+              keyboardType="default"
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          )}
+
           <CardList
             data={dataList}
             isLoading={isLoading}

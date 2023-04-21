@@ -1,5 +1,4 @@
-import {View, FlatList, ScrollView} from 'react-native';
-// import {ScrollView} from 'react-native-gesture-handler';
+import {View, FlatList, ScrollView, Text} from 'react-native';
 
 import SkeletonLoader from './SkeletonLoader';
 import {MockResponse} from '../interfaces';
@@ -23,7 +22,7 @@ const CardList = ({
 				showsVerticalScrollIndicator={false}>
 				{isLoading ? (
 					<SkeletonLoader />
-				) : (
+				) : data.length !== 0 ? (
 					<FlatList
 						className="flex-1"
 						data={data}
@@ -32,6 +31,10 @@ const CardList = ({
 						showsVerticalScrollIndicator={false}
 						showsHorizontalScrollIndicator={false}
 					/>
+				) : (
+					<Text className="text-center font-avenirBlack">
+						No hay resultados
+					</Text>
 				)}
 			</ScrollView>
 		</View>

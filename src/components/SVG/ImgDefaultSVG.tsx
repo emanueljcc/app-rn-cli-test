@@ -1,17 +1,13 @@
-import * as React from 'react';
 import Svg, {Path, Defs, Pattern, Use, Image} from 'react-native-svg';
 
-function ImgDefaultSVG(props: any) {
+const ImgDefaultSVG = () => {
 	return (
 		<Svg
 			testID="svg-element"
 			width={200}
 			height={200}
 			viewBox="0 0 200 200"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-			xmlnsXlink="http://www.w3.org/1999/xlink"
-			{...props}>
+			fill="none">
 			<Path fill="url(#pattern0)" d="M0 0H200V200H0z" />
 			<Defs>
 				<Pattern
@@ -33,6 +29,6 @@ function ImgDefaultSVG(props: any) {
 			</Defs>
 		</Svg>
 	);
-}
+};
 
 export default ImgDefaultSVG;
