@@ -43,7 +43,6 @@ const PageDetailScreen = ({navigation, route}: IProps): JSX.Element => {
 					style={styles.shadow}>
 					{item.image ? (
 						<ImageLoader
-							thumbnailSource={{uri: 'https://picsum.photos/id/1/50/50'}}
 							source={{uri: item.image}}
 							className="flex-1 w-full h-[200px] rounded-xl"
 						/>
