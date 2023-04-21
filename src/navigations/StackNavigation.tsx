@@ -6,11 +6,15 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen';
 import PageDetailScreen from '../screens/PageDetailScreen';
 import {PurpleBG} from '../components';
+import {MockResponse} from '../interfaces';
 
-// TODO: definir aqui los props de cada screen
 export type StackNavigationParams = {
-  HomeScreen: undefined;
-  PageDetailScreen: undefined;
+  HomeScreen: {
+    handleVibration: () => void;
+  };
+  PageDetailScreen: {
+    item: MockResponse;
+  };
 };
 
 const Stack = createStackNavigator<StackNavigationParams>();

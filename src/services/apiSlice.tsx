@@ -15,7 +15,7 @@ export const apiSlice = createApi({
 	tagTypes: [''],
 	endpoints: builder => ({
 		// TODO: TIPAR
-		getData: builder.query<MockResponse, any>({
+		getData: builder.query<MockResponse[], any>({
 			query: () => ({
 				url: 'v1/products',
 			}),

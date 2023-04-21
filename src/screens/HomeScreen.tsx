@@ -1,51 +1,97 @@
+import {useEffect, useMemo, useState} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
-import {SafeAreaView, View, ScrollView, Platform} from 'react-native';
+import {SafeAreaView, ScrollView, Platform, Animated} from 'react-native';
 
 import {StackNavigationParams} from '../navigations/StackNavigation';
 import {CardPoints, HeaderTitle, SectionLabel, CardList} from '../components';
 import PrimaryButton from '../components/PrimaryButton';
 import {useGetDataQuery} from '../services/apiSlice';
+import {withHapticVibration} from '../HOC';
+import {useAnimation} from '../hooks';
+import {MockResponse} from '../interfaces';
 
-type TProps = StackScreenProps<StackNavigationParams, 'HomeScreen'>;
+interface IProps extends StackScreenProps<StackNavigationParams, 'HomeScreen'> {
+  item: MockResponse;
+  handleVibration: () => void;
+}
 
-const HomeScreen = ({navigation}: TProps): JSX.Element => {
+const HomeScreen = (props: IProps): JSX.Element => {
+  const {fadeIn, opacity} = useAnimation();
+
   const {data = [], isLoading} = useGetDataQuery(undefined);
 
-  console.log({data, isLoading});
+  const [dataList, setDataList] = useState<MockResponse[]>([]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => setDataList(data), [isLoading]);
+
+  /**
+   * This function handles a button press event by calling a vibration function and navigating to a
+   * specific screen.
+   */
+  const handlePress = (item: MockResponse) => {
+    props?.handleVibration();
+    props.navigation.navigate('PageDetailScreen', {item} as never);
+  };
+
+  /* It's calling the `fadeIn` function with a duration of 500ms. */
+  useEffect(() => fadeIn(600), [fadeIn]);
+
+  // sum total points
+  const totalPoints = useMemo(
+    () =>
+      data.reduce((acc: number, curr: MockResponse) => {
+        if (curr.is_redemption) {
+          return acc - curr.points;
+        } else {
+          return acc + curr.points;
+        }
+      }, 0),
+    [data],
+  );
+
+  const handleChangeData = (arg: boolean) => {
+    setDataList(data.filter((el: MockResponse) => el.is_redemption === arg));
+  };
+
   return (
     <SafeAreaView className="mx-6 flex-1">
       <ScrollView
         className={Platform.OS === 'ios' ? 'mb-20' : 'mb-28'}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}>
-        <HeaderTitle />
+        <Animated.View style={{opacity}}>
+          <HeaderTitle />
 
-        <SectionLabel title="Tus puntos" />
-        <CardPoints />
+          <SectionLabel title="Tus puntos" />
+          <CardPoints total={totalPoints} />
 
-        <SectionLabel title="Tus movimientos" />
-        <CardList />
+          <SectionLabel title="Tus movimientos" />
+          <CardList
+            data={dataList}
+            isLoading={isLoading}
+            onPress={handlePress}
+          />
+        </Animated.View>
       </ScrollView>
 
-      <View className="w-full absolute bottom-10 flex-row justify-center items-center">
+      <Animated.View
+        style={{opacity}}
+        className="w-full absolute bottom-10 flex-row justify-center items-center px-1">
+        {/* <PrimaryButton className="w-full" title="Todos" onPress={handlePress} /> */}
         <PrimaryButton
-          className="w-full"
-          title="Todos"
-          onPress={() => navigation.navigate('PageDetailScreen')}
-        />
-        {/* <PrimaryButton
           className="w-1/2 mr-[13px]"
           title="Ganados"
-          onPress={() => navigation.navigate('PageDetailScreen')}
+          onPress={() => handleChangeData(false)}
         />
         <PrimaryButton
           className="w-1/2"
           title="Canjeados"
-          onPress={() => navigation.navigate('PageDetailScreen')}
-        /> */}
-      </View>
+          onPress={() => handleChangeData(true)}
+        />
+      </Animated.View>
     </SafeAreaView>
   );
 };
 
-export default HomeScreen;
+export default withHapticVibration(HomeScreen);
