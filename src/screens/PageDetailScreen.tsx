@@ -1,12 +1,16 @@
 import {useEffect} from 'react';
-import {Text, View, ScrollView, Animated, Image} from 'react-native';
+import {Text, View, ScrollView, Animated} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
+import ImageBlurLoading from 'react-native-image-blur-loading';
+import {styled} from 'nativewind';
 
 import {StackNavigationParams} from '../navigations/StackNavigation';
 import {PrimaryButton, ImgDefaultSVG, PurpleBG} from '../components';
 import {formatDate, formatNumber} from '../utils';
 import {styles} from '../theme/globalStyles';
 import {useAnimation} from '../hooks';
+
+const ImageLoader = styled(ImageBlurLoading);
 
 interface IProps
 	extends StackScreenProps<StackNavigationParams, 'PageDetailScreen'> {}
@@ -38,9 +42,10 @@ const PageDetailScreen = ({navigation, route}: IProps): JSX.Element => {
 					className="mt-40 bg-white h-[350px] rounded-[10px] mx-6 justify-center items-center"
 					style={styles.shadow}>
 					{item.image ? (
-						<Image
+						<ImageLoader
+							thumbnailSource={{uri: 'https://picsum.photos/id/1/50/50'}}
 							source={{uri: item.image}}
-							className="w-[200px] h-[200px] rounded-xl"
+							className="flex-1 w-full h-[200px] rounded-xl"
 						/>
 					) : (
 						<ImgDefaultSVG />

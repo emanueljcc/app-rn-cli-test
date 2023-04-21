@@ -1,6 +1,12 @@
-import {useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
-import {SafeAreaView, ScrollView, Platform, Animated} from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  Platform,
+  Animated,
+  RefreshControl,
+} from 'react-native';
 
 import {StackNavigationParams} from '../navigations/StackNavigation';
 import {CardPoints, HeaderTitle, SectionLabel, CardList} from '../components';
@@ -18,9 +24,10 @@ interface IProps extends StackScreenProps<StackNavigationParams, 'HomeScreen'> {
 const HomeScreen = (props: IProps): JSX.Element => {
   const {fadeIn, opacity} = useAnimation();
 
-  const {data = [], isLoading} = useGetDataQuery(undefined);
+  const {data = [], isLoading, refetch} = useGetDataQuery(undefined);
 
   const [dataList, setDataList] = useState<MockResponse[]>([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => setDataList(data), [isLoading]);
@@ -54,12 +61,22 @@ const HomeScreen = (props: IProps): JSX.Element => {
     setDataList(data.filter((el: MockResponse) => el.is_redemption === arg));
   };
 
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    refetch();
+    setRefreshing(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <SafeAreaView className="mx-6 flex-1">
       <ScrollView
         className={Platform.OS === 'ios' ? 'mb-20' : 'mb-28'}
         showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <Animated.View style={{opacity}}>
           <HeaderTitle />
 
