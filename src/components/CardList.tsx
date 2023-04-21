@@ -1,8 +1,9 @@
-import {View, FlatList, ScrollView, Text} from 'react-native';
+import {View, FlatList, ScrollView} from 'react-native';
 
 import SkeletonLoader from './SkeletonLoader';
 import {MockResponse} from '../interfaces';
 import CardItem from './CardItem';
+import NotFound from './NotFound';
 
 type TCardListProps = {
 	data: MockResponse[];
@@ -32,9 +33,7 @@ const CardList = ({
 						showsHorizontalScrollIndicator={false}
 					/>
 				) : (
-					<Text className="text-center font-avenirBlack">
-						No hay resultados
-					</Text>
+					<NotFound />
 				)}
 			</ScrollView>
 		</View>

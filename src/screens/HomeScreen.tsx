@@ -8,6 +8,7 @@ import {
   RefreshControl,
   View,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import {StackNavigationParams} from '../navigations/StackNavigation';
@@ -114,40 +115,45 @@ const HomeScreen = (props: IProps): JSX.Element => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
-        <Animated.View style={{opacity}}>
-          <HeaderTitle />
+        <KeyboardAvoidingView
+          className="flex-1"
+          keyboardVerticalOffset={20}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <Animated.View style={{opacity}}>
+            <HeaderTitle />
 
-          <SectionLabel title="Tus puntos" />
-          <CardPoints total={totalPoints} />
+            <SectionLabel title="Tus puntos" />
+            <CardPoints total={totalPoints} />
 
-          <View className="flex-1 flex-row justify-between">
-            <SectionLabel title="Tus movimientos" />
-            <TouchableOpacity
-              activeOpacity={0.2}
-              className="mt-2"
-              onPress={!showSearch ? handleShowSearch : handleClean}>
-              {showSearch ? <RemoveSVG /> : <SearchSVG />}
-            </TouchableOpacity>
-          </View>
+            <View className="flex-1 flex-row justify-between">
+              <SectionLabel title="Tus movimientos" />
+              <TouchableOpacity
+                activeOpacity={0.2}
+                className="mt-2"
+                onPress={!showSearch ? handleShowSearch : handleClean}>
+                {showSearch ? <RemoveSVG /> : <SearchSVG />}
+              </TouchableOpacity>
+            </View>
 
-          {showSearch && (
-            <TextInput
-              className="rounded-md border-[1px] h-10 p-2 border-[#ced4da] bg-white mb-4"
-              onChangeText={handleChangeInput}
-              value={valueInput}
-              placeholder="Ingrese una palabra"
-              keyboardType="default"
-              autoCapitalize="none"
-              autoCorrect={false}
+            {showSearch && (
+              <TextInput
+                className="rounded-md border-[1px] h-10 p-2 border-[#ced4da] bg-white mb-4"
+                onChangeText={handleChangeInput}
+                value={valueInput}
+                placeholder="Ingrese una palabra"
+                keyboardType="default"
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+            )}
+
+            <CardList
+              data={dataList}
+              isLoading={isLoading}
+              onPress={handlePress}
             />
-          )}
-
-          <CardList
-            data={dataList}
-            isLoading={isLoading}
-            onPress={handlePress}
-          />
-        </Animated.View>
+          </Animated.View>
+        </KeyboardAvoidingView>
       </ScrollView>
 
       <Animated.View

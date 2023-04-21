@@ -8,13 +8,15 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest --verbose=true --config=jest.config.js --detectOpenHandles",
-		"test:snapshots": "jest --config=jest.config.js --updateSnapshot"
+    "test:snapshots": "jest --config=jest.config.js --updateSnapshot"
   },
   "dependencies": {
     "@react-native-masked-view/masked-view": "^0.2.9",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/stack": "^6.3.16",
     "@reduxjs/toolkit": "^1.9.5",
+    "lottie-ios": "3.4.0",
+    "lottie-react-native": "^5.1.5",
     "nativewind": "^2.0.11",
     "react": "18.2.0",
     "react-content-loader": "^6.2.1",
@@ -51,8 +53,8 @@
   },
   "jest": {
     "preset": "react-native",
-		"transformIgnorePatterns": [
-			"node_modules/(?!react-native-image-blur-loading/.*)"
-		]
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native-image-blur-loading/.*)"
+    ]
   }
 }
