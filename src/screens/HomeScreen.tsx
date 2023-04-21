@@ -106,18 +106,18 @@ const HomeScreen = (props: IProps): JSX.Element => {
 
 	return (
 		<SafeAreaView className="mx-6 flex-1">
-			<ScrollView
-				testID="refresh-control"
-				className={Platform.OS === 'ios' ? 'mb-20' : 'mb-28'}
-				showsHorizontalScrollIndicator={false}
-				showsVerticalScrollIndicator={false}
-				refreshControl={
-					<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-				}>
-				<KeyboardAvoidingView
-					className="flex-1"
-					keyboardVerticalOffset={40}
-					behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+			<KeyboardAvoidingView
+				className="flex-1"
+				keyboardVerticalOffset={20}
+				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+				<ScrollView
+					testID="refresh-control"
+					className={Platform.OS === 'ios' ? 'mb-20' : 'mb-28'}
+					showsHorizontalScrollIndicator={false}
+					showsVerticalScrollIndicator={false}
+					refreshControl={
+						<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+					}>
 					<Animated.View style={{opacity}}>
 						<HeaderTitle />
 
@@ -126,14 +126,12 @@ const HomeScreen = (props: IProps): JSX.Element => {
 
 						<View className="flex-1 flex-row justify-between">
 							<SectionLabel title="Tus movimientos" />
-							{Platform.OS === 'ios' && (
-								<TouchableOpacity
-									activeOpacity={0.2}
-									className="mt-2"
-									onPress={!showSearch ? handleShowSearch : handleClean}>
-									{showSearch ? <RemoveSVG /> : <SearchSVG />}
-								</TouchableOpacity>
-							)}
+							<TouchableOpacity
+								activeOpacity={0.2}
+								className="mt-2"
+								onPress={!showSearch ? handleShowSearch : handleClean}>
+								{showSearch ? <RemoveSVG /> : <SearchSVG />}
+							</TouchableOpacity>
 						</View>
 
 						{showSearch && (
@@ -154,8 +152,8 @@ const HomeScreen = (props: IProps): JSX.Element => {
 							onPress={handlePress}
 						/>
 					</Animated.View>
-				</KeyboardAvoidingView>
-			</ScrollView>
+				</ScrollView>
+			</KeyboardAvoidingView>
 
 			<Animated.View
 				style={{opacity}}
