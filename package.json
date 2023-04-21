@@ -6,6 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "lint": "eslint .",
+		"postinstall": "patch-package",
     "start": "react-native start",
     "test": "jest --verbose=true --config=jest.config.js --detectOpenHandles",
     "test:snapshots": "jest --config=jest.config.js --updateSnapshot"
