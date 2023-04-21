@@ -9,6 +9,7 @@ import {
 	View,
 	TouchableOpacity,
 	KeyboardAvoidingView,
+	TextInput,
 } from 'react-native';
 
 import {StackNavigationParams} from '../navigations/StackNavigation';
@@ -16,12 +17,10 @@ import {CardPoints, HeaderTitle, SectionLabel, CardList} from '../components';
 import PrimaryButton from '../components/PrimaryButton';
 import {useGetDataQuery} from '../services/apiSlice';
 import {withHapticVibration} from '../HOC';
-import {useAnimation} from '../hooks';
+import {useAnimation, useDebounce} from '../hooks';
 import {MockResponse} from '../interfaces';
 import SearchSVG from '../components/SVG/SearchSVG';
 import RemoveSVG from '../components/SVG/RemoveSVG';
-import {TextInput} from 'react-native';
-import {useDebounce} from '../hooks';
 
 interface IProps extends StackScreenProps<StackNavigationParams, 'HomeScreen'> {
 	item: MockResponse;

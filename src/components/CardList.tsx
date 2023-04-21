@@ -1,4 +1,4 @@
-import {View, FlatList, ScrollView} from 'react-native';
+import {View, FlatList} from 'react-native';
 
 import SkeletonLoader from './SkeletonLoader';
 import {MockResponse} from '../interfaces';
