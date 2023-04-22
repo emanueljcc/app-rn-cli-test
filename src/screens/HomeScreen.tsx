@@ -108,11 +108,13 @@ const HomeScreen = (props: IProps): JSX.Element => {
 		<SafeAreaView className="mx-6 flex-1">
 			<KeyboardAvoidingView
 				className="flex-1"
-				keyboardVerticalOffset={20}
+				keyboardVerticalOffset={0}
 				behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
 				<ScrollView
 					testID="refresh-control"
-					className={Platform.OS === 'ios' ? 'mb-20' : 'mb-28'}
+					className={
+						Platform.OS === 'ios' ? (!showSearch ? 'mb-20' : '') : 'mb-28'
+					}
 					showsHorizontalScrollIndicator={false}
 					showsVerticalScrollIndicator={false}
 					refreshControl={
@@ -143,6 +145,7 @@ const HomeScreen = (props: IProps): JSX.Element => {
 								keyboardType="default"
 								autoCapitalize="none"
 								autoCorrect={false}
+								autoFocus
 							/>
 						)}
 
